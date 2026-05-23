@@ -73,46 +73,145 @@
             z-index: 100;
             display: grid;
             place-items: center;
-            padding: 20px;
-            background: rgba(245,248,255,.36);
-            backdrop-filter: blur(34px) saturate(180%);
-            -webkit-backdrop-filter: blur(34px) saturate(180%);
+            padding: 24px;
+            background:
+                radial-gradient(circle at 50% 18%, rgba(255,255,255,.10), transparent 28%),
+                linear-gradient(135deg, rgba(2,10,22,.72), rgba(12,11,38,.72));
+            backdrop-filter: blur(30px) saturate(150%);
+            -webkit-backdrop-filter: blur(30px) saturate(150%);
         }
         .gate-panel {
-            width: min(100%, 430px);
-            padding: 28px;
-            border: 1px solid var(--glass-border);
-            border-radius: 28px;
-            background: var(--glass);
-            box-shadow: var(--shadow);
+            position: relative;
+            width: min(100%, 520px);
+            padding: 34px;
+            border: 1px solid rgba(255,255,255,.16);
+            border-radius: 24px;
+            background:
+                linear-gradient(145deg, rgba(255,255,255,.12), rgba(255,255,255,.045)),
+                rgba(10,13,24,.62);
+            box-shadow:
+                0 28px 90px rgba(0,0,0,.34),
+                inset 0 1px 0 rgba(255,255,255,.16),
+                inset 0 -1px 0 rgba(255,255,255,.05);
+            overflow: hidden;
+        }
+        .gate-panel::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(115deg, rgba(255,255,255,.18), transparent 36%, rgba(255,255,255,.06) 70%, transparent);
+            opacity: .7;
+            pointer-events: none;
+        }
+        .gate-panel > * {
+            position: relative;
+        }
+        .gate-eyebrow {
+            width: fit-content;
+            margin-bottom: 20px;
+            padding: 5px 9px;
+            border: 1px solid rgba(255,255,255,.14);
+            border-radius: 999px;
+            color: rgba(245,245,247,.66);
+            background: rgba(255,255,255,.055);
+            font-size: .72rem;
+            font-weight: 720;
+            letter-spacing: .12em;
         }
         .gate-panel h2 {
-            display: grid;
-            grid-template-columns: auto minmax(0, 1fr);
-            gap: 14px;
-            align-items: start;
-            margin: 0 0 22px;
-            padding-bottom: 14px;
-            border-bottom: 1px solid var(--hairline);
-            font-size: clamp(1.45rem, 2.45vw, 2.35rem);
-            line-height: 1.18;
+            display: block;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            color: #f5f5f7;
+            font-size: clamp(2rem, 5vw, 3.05rem);
+            line-height: 1.04;
             font-weight: 760;
             letter-spacing: 0;
             text-wrap: balance;
         }
-        .gate input:focus, .search:focus { border-color: rgba(0,113,227,.55); box-shadow: 0 0 0 4px rgba(0,113,227,.12); }
-        .gate button {
-            min-height: 46px;
-            border: 0;
+        .gate-copy {
+            margin: 12px 0 30px;
+            color: rgba(245,245,247,.68);
+            font-size: 1rem;
+        }
+        .gate-label {
+            display: block;
+            margin-bottom: 8px;
+            color: rgba(245,245,247,.60);
+            font-size: .82rem;
+            font-weight: 680;
+        }
+        .gate-row {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) auto;
+            gap: 10px;
+            align-items: stretch;
+        }
+        .gate input, .search {
+            min-height: 48px;
+            min-width: 0;
+            border: 1px solid var(--hairline);
             border-radius: 14px;
-            padding: 0 18px;
-            color: white;
-            background: var(--accent);
+            padding: 0 14px;
+            color: var(--text);
+            background: rgba(255,255,255,.34);
+            font: inherit;
+            outline: none;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+        .gate input {
+            border-color: rgba(255,255,255,.13);
+            color: #f5f5f7;
+            background: rgba(255,255,255,.07);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.06);
+        }
+        .gate input::placeholder {
+            color: rgba(245,245,247,.34);
+        }
+        .gate input:focus, .search:focus {
+            border-color: rgba(140,185,255,.58);
+            box-shadow: 0 0 0 4px rgba(41,151,255,.12), inset 0 1px 0 rgba(255,255,255,.08);
+        }
+        .gate button {
+            min-height: 48px;
+            border: 1px solid rgba(255,255,255,.18);
+            border-radius: 14px;
+            padding: 0 19px;
+            color: #f5f5f7;
+            background:
+                linear-gradient(180deg, rgba(255,255,255,.16), rgba(255,255,255,.055)),
+                rgba(54,93,145,.72);
+            box-shadow: inset 0 1px 0 rgba(255,255,255,.18), 0 12px 28px rgba(0,0,0,.20);
             font: inherit;
             font-weight: 720;
             cursor: pointer;
+            transition: transform .18s ease, border-color .18s ease, background .18s ease;
         }
-        .gate-error { min-height: 22px; margin-top: 10px; color: var(--danger); font-size: .9rem; }
+        .gate button:hover {
+            transform: translateY(-1px);
+            border-color: rgba(255,255,255,.30);
+            background:
+                linear-gradient(180deg, rgba(255,255,255,.20), rgba(255,255,255,.07)),
+                rgba(61,105,160,.78);
+        }
+        .gate button:disabled {
+            cursor: default;
+            opacity: .72;
+            transform: none;
+        }
+        .gate-hint {
+            margin: 14px 0 0;
+            color: rgba(245,245,247,.44);
+            font-size: .84rem;
+        }
+        .gate-error {
+            min-height: 22px;
+            margin-top: 10px;
+            color: #ff8a80;
+            font-size: .9rem;
+        }
         body:not(.locked) .gate { display: none; }
         .hero { min-height: 36vh; display: grid; align-content: end; gap: 14px; padding: 56px 4px 34px; }
         h1 {
@@ -261,12 +360,15 @@
 <body class="locked">
     <div class="gate" role="dialog" aria-modal="true" aria-labelledby="gate-title">
         <form class="gate-panel" id="gate-form">
-            <h2 id="gate-title">内部资料访问</h2>
-            <p>请输入访问密码。</p>
+            <div class="gate-eyebrow">LEMEI CULTURE · INTERNAL</div>
+            <h2 id="gate-title">乐美文化内部学习资料</h2>
+            <p class="gate-copy">仅供内部学习，不可外传转发。</p>
+            <label class="gate-label" for="gate-password">访问密码</label>
             <div class="gate-row">
-                <input id="gate-password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="访问密码">
+                <input id="gate-password" type="password" inputmode="numeric" autocomplete="current-password" placeholder="输入访问密码">
                 <button type="submit">进入</button>
             </div>
+            <p class="gate-hint">内容将在本机解锁，不在页面源码中明文展示。</p>
             <div class="gate-error" id="gate-error" aria-live="polite"></div>
         </form>
     </div>
